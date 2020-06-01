@@ -1,14 +1,16 @@
 import React from "react";
-const cardComponent=({thText,columnText})=>{
-    return(
-        <table>
-        <tr>
-        <th>{thText}</th>
-        </tr>
-        <tr>
-        <td>{columnText}</td>
-        </tr>
-        </table>
+import ButtonComponent from "./ButtonComponent"
+const CardComponent = ({ name, popularity,image,buttonOnClickFunction }) => {
+    return (
+      
+                <tr >
+                    <td ><img src={image} alt={name}/></td>
+                    <td>{name}</td>
+                    <td>{popularity}</td>
+                    <td ><ButtonComponent buttonText={"delete"} onClickFunction={buttonOnClickFunction}/></td>
+
+                </tr>
+ 
     );
 }
-export default cardComponent;
+export default CardComponent;
