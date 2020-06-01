@@ -1,0 +1,20 @@
+.ImdbRandom table{
+    size: 40vmax;
+    margin-left: 32vw;
+
+}
+.ImdbRandom table td{
+    flex: content;
+    flex-wrap: nowrap;
+    
+
+}
+.ImdbRandom table td img{
+    height: 7vmax;
+    width: auto;
+    
+
+}
+
+
+
