@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ButtonComponent from"./components/ButtonComponent";
 import actors from "./data/imdb.json";
+import buttonComponent from "./components/ButtonComponent";
 
 const title="IMDB APP"
 
@@ -51,7 +52,7 @@ class ButtonBuilder extends Component{
     render(){
         return(
             <div>
-            {this.props.buttonProps.map((elem)=>(ButtonComponent))}
+            {this.props.buttonProps.map((elem)=>(<ButtonComponent buttonText={elem}/>))}
             </div>
         )
     }
