@@ -1,0 +1,21 @@
+#actorsList{
+    border: 1px solid black;
+    size: 40vmax;
+    margin-left: 35vmax;
+
+}
+#actorsList th {
+
+}
+
+#actorsList img{
+    height: 5vmax;
+    
+
+}
+#choice{
+   margin-left: 0vmax;
+}
+
+
+

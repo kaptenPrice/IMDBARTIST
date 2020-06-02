@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./imdbRandom.css"
+import "./styling/imdbRandom.css"
 import ButtonComponent from "./components/ButtonComponent";
 import actorsData from "./data/imdb.json";
 import CardComponent from "./components/Card";
@@ -45,30 +45,33 @@ class ImdbRandom extends Component {
             }
         })
     }
-
-    sortByName(key) {
-        this.result.sort((a,b)=>a<b);
-        this.setState({
-            return{
-                
-            }
-        })
-        alert("Sorting by Name")
+    compareBy(key) {
+        return function (a, b) {
+          if (""+a[key]<(""+b[key])) return -1;
+          if (""+a[key]>(""+b[key])) return 1;
+          return 0;
+        };
     }
 
+    sortByName(key) {
+        let resultCopy=[...this.state.result];
+        resultCopy.sort(this.compareBy(key))
+        this.setState({result:resultCopy});
+        console.log(this.state.result)
+    }
 
+    sortByPop(key) {
+        let resultCopy=[...this.state.result];
+        resultCopy.sort((a,b)=>b.popularity -a.popularity);
+        this.setState({result:resultCopy})
 
-
-
-    sortByPop() {
-        alert("Sorted by popularity")
     }
     
     render() {
         return (
             <div>
                 <h1>Imdb App</h1>
-                <div>
+                <div id="choice">
                     <ButtonComponent
                         key={buttonTextList[0]}
                         buttonText={buttonTextList[0]}
@@ -77,19 +80,23 @@ class ImdbRandom extends Component {
                     <ButtonComponent
                         key={buttonTextList[1]}
                         buttonText={buttonTextList[1]}
-                        onClickFunction={this.sortByName}
+                        onClickFunction={()=>this.sortByName('name')}
+
                     />
                     <ButtonComponent
                         key={buttonTextList[2]}
                         buttonText={buttonTextList[2]}
-                        onClickFunction={this.sortByPop}
+                        onClickFunction={()=>this.sortByPop('popularity')}
                     />
 
                 </div>
                 <table id="actorsList">
                     <tbody>
+                    <th>Picture</th>
+                    <th>Name</th>
+                    <th>popularity</th>
                         {this.state.result.map((elem) =>
-                            <CardComponent key={elem.name}
+                            <CardComponent  key={elem.name}
                                 name={elem.name}
                                 popularity={elem.popularity}
                                 image={elem.pictureUrl}
@@ -105,36 +112,3 @@ class ImdbRandom extends Component {
 
 
 export default ImdbRandom;
-
-// class ImdbRandom extends Component {
-
-//     render() {
-
-//         return (
-//             <div className="ImdbRandom">
-
-//                 <ImdbRandom content={generateRandomActors}
-//                     buttonProps={buttonTextList} />
-
-//             </div>
-//         );
-//     }
-
-// }
-/*  {this.props.buttonProps.map((elem) =>
-                    <ButtonComponent
-                    key={elem}
-                    buttonText={elem}
-                    onClickFunction={}
-                    />
-                    )}*/
-                    // const generateRandomActors = () => {
-
-//     let result = [];
-//     for (let i = 0; i < 5; i++) {
-//         let random = Math.floor(Math.random() * actorsData.length);
-//         result.push(actorsData[random]);
-//         /*  actorsData.splice(random, 1);*/
-//     }
-//     return result;
-// }
