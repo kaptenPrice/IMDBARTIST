@@ -1,16 +1,13 @@
-.ImdbRandom table{
+#actorsList{
+    border: 1px solid black;
     size: 40vmax;
-    margin-left: 32vw;
+    margin-left: 36vw;
 
 }
-.ImdbRandom table td{
-    flex: content;
-    flex-wrap: nowrap;
-    
 
-}
-.ImdbRandom table td img{
-    height: 7vmax;
+#actorsList img{
+    border: 1px solid red;
+    height: 5vmax;
     width: auto;
     
 

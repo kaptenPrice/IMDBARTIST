@@ -10,48 +10,60 @@ const buttonTextList = ["Generate random actors", "Sort By Name", "Sort By popul
 class ImdbRandom extends Component {
     constructor(props) {
         super(props);
-
-        this.delete = this.delete.bind(this);
-        this.generateRandomActors = this.generateRandomActors(this);
-
         this.state = {
-            result: this.actorsToShow,
+            result: this.actorsToShow(),
         }
 
+        this.delete = this.delete.bind(this);
+        this.generateRandomActors = this.generateRandomActors.bind(this);
+        this.sortByName=this.sortByName.bind(this);
+
     }
-    actorsToShow=()=> {
+    actorsToShow = () => {
         let result = [];
         for (let i = 0; i < 5; i++) {
             let random = Math.floor(Math.random() * actorsData.length);
             result.push(actorsData[random]);
-            actorsData.splice(random, 1);
+          //  actorsData.splice(random, 1);
         } return result;
     }
 
     delete(actorName) {
-        const copyArr = Object.assign([], this.props.content);
-        console.log("Name deleted " + actorName);
-        copyArr.splice(actorName, 1);
+        const toRemove = this.state.result.filter(elem =>
+            elem.name !== actorName)
+
+        this.setState({
+            result: toRemove,
+
+        })
+
     }
-    
-
-     generateRandomActors() {
-         this.setState(() => {
-             return {
-
-             }
-         })
-    
+    generateRandomActors() {
+        this.setState(() => {
+            return {
+                result: this.actorsToShow(),
+            }
+        })
     }
 
-
-    sortByName() {
+    sortByName(key) {
+        this.result.sort((a,b)=>a<b);
+        this.setState({
+            return{
+                
+            }
+        })
         alert("Sorting by Name")
     }
+
+
+
+
+
     sortByPop() {
         alert("Sorted by popularity")
     }
-
+    
     render() {
         return (
             <div>
@@ -74,14 +86,14 @@ class ImdbRandom extends Component {
                     />
 
                 </div>
-                <table>
+                <table id="actorsList">
                     <tbody>
-                        {this.actorsToShow().map((elem) =>
+                        {this.state.result.map((elem) =>
                             <CardComponent key={elem.name}
                                 name={elem.name}
                                 popularity={elem.popularity}
                                 image={elem.pictureUrl}
-                                buttonOnClickFunction={this.delete(elem.name)} />
+                                buttonOnClickFunction={() => this.delete(elem.name)} />
                         )}
                     </tbody>
                 </table>
