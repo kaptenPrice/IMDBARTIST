@@ -8,17 +8,24 @@ import CardComponent from "./components/Card";
 const buttonTextList = ["Generate random actors", "Sort By Name", "Sort By popularity"];
 
 class ImdbRandom extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
-    this.delete=this.delete.bind(this);
-    this.generateRandomActors=this.generateRandomActors(this);
-    
-    this.state={
-        result:this.generateRandomActors
+        this.delete = this.delete.bind(this);
+        this.generateRandomActors = this.generateRandomActors(this);
+
+        this.state = {
+            result: this.actorsToShow,
+        }
+
     }
-    
-       
+    actorsToShow=()=> {
+        let result = [];
+        for (let i = 0; i < 5; i++) {
+            let random = Math.floor(Math.random() * actorsData.length);
+            result.push(actorsData[random]);
+            actorsData.splice(random, 1);
+        } return result;
     }
 
     delete(actorName) {
@@ -26,15 +33,17 @@ class ImdbRandom extends Component {
         console.log("Name deleted " + actorName);
         copyArr.splice(actorName, 1);
     }
-    generateRandomActors(){
-        console.log("GEnerate")
-        let result = [];
-        for (let i = 0; i < 5; i++) {
-            let random = Math.floor(Math.random() * actorsData.length);
-            result.push(actorsData[random]);
-            /*  actorsData.splice(random, 1);*/
-        }return result;
+    
+
+     generateRandomActors() {
+         this.setState(() => {
+             return {
+
+             }
+         })
+    
     }
+
 
     sortByName() {
         alert("Sorting by Name")
@@ -67,7 +76,7 @@ class ImdbRandom extends Component {
                 </div>
                 <table>
                     <tbody>
-                        {this.generateRandomActors.map((elem) =>
+                        {this.actorsToShow().map((elem) =>
                             <CardComponent key={elem.name}
                                 name={elem.name}
                                 popularity={elem.popularity}
